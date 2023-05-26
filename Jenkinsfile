@@ -14,11 +14,11 @@ pipeline {
         checkout scm
       }
     }
-//     stage('Terraform Plugin Check') {
-//       steps {
-//         sh './terraformw init'
-//       }
-//     }
+    stage('Terraform Plugin Check') {
+      steps {
+        sh './terraformw init'
+      }
+    }
     stage('Terraform Destroy') {
       steps {
         sh './terraformw destroy -auto-approve -no-color'
