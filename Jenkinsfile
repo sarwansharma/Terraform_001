@@ -4,19 +4,23 @@ pipeline {
     skipDefaultCheckout(true)
   }
   stages{
-    stage('clean workspace') {
+    stage('Clean Workspace') {
       steps {
         cleanWs()
       }
     }
-    stage('checkout') {
+    stage('Checkout SCM') {
       steps {
         checkout scm
       }
     }
-    stage('terraform') {
+    stage('Terraform Plugin Check') {
       steps {
         sh './terraformw init'
+      }
+    }
+    stage('Terraform Deployment') {
+      steps {
         sh './terraformw apply -auto-approve -no-color'
       }
     }
