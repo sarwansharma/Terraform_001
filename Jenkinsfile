@@ -14,14 +14,14 @@ pipeline {
         checkout scm
       }
     }
-    stage('Terraform Plugin Check') {
+//     stage('Terraform Plugin Check') {
+//       steps {
+//         sh './terraformw init'
+//       }
+//     }
+    stage('Terraform Destroy') {
       steps {
-        sh './terraformw init'
-      }
-    }
-    stage('Terraform Deployment') {
-      steps {
-        sh './terraformw apply -auto-approve -no-color'
+        sh './terraformw destroy -auto-approve -no-color'
       }
     }
   }
