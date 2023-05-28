@@ -1,7 +1,7 @@
 pipeline {
   agent { label 'linux'}
   options {
-    skipDefaultCheckout(true)
+    skipDefaultCheckout(false)
   }
   stages {
     stage('Clean Workspace') {
@@ -16,22 +16,19 @@ pipeline {
     }
     stage('Terraform Plugin Check') {
       steps {
-        dir("$WORKSPACE/terraform") {
-          sh 'terraform init'
-        }
+        sh 'terraform init'
       }
     }
     stage('Terraform Deployment') {
       steps {
-        dir("$WORKSPACE/terraform") {
-          sh 'terraform apply -auto-approve -no-color'
-        }
+        sh 'terraform apply -auto-approve -no-color'
       }
     }
   }
   post {
     always {
       cleanWs()
+      archiveArtifacts artifacts: 'terraform.tfstate', fingerprint: true
     }
   }
 }
