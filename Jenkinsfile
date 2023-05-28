@@ -27,7 +27,7 @@ pipeline {
   }
   post {
     always {
-      cleanWs()
+//       cleanWs()
       archiveArtifacts artifacts: 'terraform.tfstate', fingerprint: true
     }
   }
