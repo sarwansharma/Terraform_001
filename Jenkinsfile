@@ -3,7 +3,7 @@ pipeline {
   options {
     skipDefaultCheckout(true)
   }
-  stages{
+  stages {
     stage('Clean Workspace') {
       steps {
         cleanWs()
@@ -16,12 +16,17 @@ pipeline {
     }
     stage('Terraform Plugin Check') {
       steps {
-        sh './terraformw init'
+        sh 'mkdir -p $WORKSPACE/terraform'
+        dir("$WORKSPACE/terraform") {
+          sh 'terraform init -backend=false'
+        }
       }
     }
     stage('Terraform Deployment') {
       steps {
-        sh './terraformw apply -auto-approve -no-color'
+        dir("$WORKSPACE/terraform") {
+          sh 'terraform apply -auto-approve -no-color'
+        }
       }
     }
   }
