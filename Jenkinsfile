@@ -16,6 +16,7 @@ pipeline {
     }
     stage('Terraform Plugin Check') {
       steps {
+        sh 'chmod +x trigger.sh' // Set executable permission
         sh './trigger.sh'
       }
     }
