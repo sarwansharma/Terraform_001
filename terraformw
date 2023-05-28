@@ -1,37 +1,24 @@
-pipeline {
-  agent { label 'linux'}
-  options {
-    skipDefaultCheckout(true)
-  }
-  stages {
-    stage('Clean Workspace') {
-      steps {
-        cleanWs()
-      }
-    }
-    stage('Checkout SCM') {
-      steps {
-        checkout scm
-      }
-    }
-    stage('Terraform Plugin Check') {
-      steps {
-        dir("$WORKSPACE/terraform") {
-          sh 'terraform init'
-        }
-      }
-    }
-    stage('Terraform Deployment') {
-      steps {
-        dir("$WORKSPACE/terraform") {
-          sh 'terraform apply -auto-approve -no-color'
-        }
-      }
-    }
-  }
-  post {
-    always {
-      cleanWs()
-    }
-  }
-}
+#!/bin/bash 
+
+# based on https://tfswitch.warrensbox.com/Continuous-Integration/
+
+echo "Installing tfswitch locally"
+
+# Get the installer on to your machine
+wget -N -c https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh
+
+# Make installer executable
+chmod 755 install.sh
+
+# Install tfswitch in a location you have permission
+./install.sh -b $(pwd)/.bin
+
+# set custom bin path
+CUSTOMBIN=$(pwd)/.bin
+
+#Add custom bin path to PATH environment
+export PATH=$CUSTOMBIN:$PATH
+
+$CUSTOMBIN/tfswitch -b $CUSTOMBIN/terraform
+
+terraform $*
