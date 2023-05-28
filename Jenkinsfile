@@ -16,9 +16,8 @@ pipeline {
     }
     stage('Terraform Plugin Check') {
       steps {
-        sh 'mkdir -p $WORKSPACE/terraform'
         dir("$WORKSPACE/terraform") {
-          sh 'terraform init -backend=false'
+          sh 'terraform init'
         }
       }
     }
@@ -30,9 +29,9 @@ pipeline {
       }
     }
   }
-//   post {
-//     always {
-//       cleanWs()
-//     }
-//   }
+  post {
+    always {
+      cleanWs()
+    }
+  }
 }
