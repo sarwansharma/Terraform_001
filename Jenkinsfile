@@ -16,12 +16,7 @@ pipeline {
     }
     stage('Terraform Plugin Check') {
       steps {
-        sh './terraformw init'
-      }
-    }
-    stage('Terraform Destroy') {
-      steps {
-        sh './terraformw destroy -auto-approve -no-color'
+        sh './trigger.sh'
       }
     }
   }
