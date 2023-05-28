@@ -1,6 +1,6 @@
 provider "vsphere" {
-  user                 = "administrator@vsphere.local"
-  password             = "1995@Tongyeong"
+  user                 = credentials("vsphere_creds")
+  password             = credentials("vsphere_creds").getPlainText()
   vsphere_server       = "vcsa.vsphere.local"
   allow_unverified_ssl = true
 }
