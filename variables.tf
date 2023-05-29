@@ -1,4 +1,4 @@
 variable "password" {
   description = "vSphere_Login_Password"
-  default     = "default"
+  default     = "1995@Tongyeong"
 }
