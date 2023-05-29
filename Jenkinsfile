@@ -21,7 +21,7 @@ pipeline {
     }
     stage('Terraform Deployment') {
       steps {
-        sh 'terraform apply -auto-approve -no-color'
+        sh 'terraform apply -var "password=1995@Tongyeong" -auto-approve -no-color'
       }
     }
   }
