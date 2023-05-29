@@ -1,6 +1,6 @@
 provider "vsphere" {
   user                 = root
-  password             = 'vsphere_password'
+  password             = var.password
   vsphere_server       = "vcsa.vsphere.local"
   allow_unverified_ssl = true
 }
