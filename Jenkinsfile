@@ -21,7 +21,8 @@ pipeline {
     }
     stage('Terraform Deployment') {
       steps {
-        sh 'terraform apply -var "password=1995@Tongyeong" -auto-approve -no-color'
+        withCredentials([string(credentialsId: 'vsphere_password', variable: 'SECRET_PASSWORD')]) {
+          sh 'terraform apply -var "password=$SECRET_PASSWORD" -auto-approve -no-color'
       }
     }
   }
